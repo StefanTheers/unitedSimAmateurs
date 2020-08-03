@@ -1,0 +1,95 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+
+# CSV result files
+
+
+# Visual Studio
+.vs/
+*.vcxproj*
+*.sln
+
+# hidden directories: R code version
+
+
+
+
+# Emacs backup copies
+*~
+
+# Emacs history files
+*.Rhistory
+
+# RStudio
+*.Rproj
+
+# LaTeX files
+*.aux
+*.bbl
+*.blg
+*.log
+*.run.xml
+*.synctex.gz
+*-blx.bib
+*.out
+*.nav
+*.atfi
+*.toc
+*.snm
+*.ilg
+*.nlo
+*.nls
+*.lof
+*.loa
+*.bcf
+*.lot
+
+# LaTeX auto folder
+**/auto
+
+# R Markdown / Knitr Cache/ RStudio
+*_cache
+*_files
+.Rproj.user
+
+# R packages
+*.tar.gz
+
+# other R files
+*.r#
+
+
+
+
