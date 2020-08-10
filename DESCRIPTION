@@ -1,0 +1,17 @@
+Package: unitedSimAmateurs
+Type: Package
+Title: United Simulation Code for Amateur Lineups
+Version: 0.3
+Date: 2020-08-03
+Author: Stefan Theers
+Maintainer: Stefan Theers <stefan.theers@tu-dortmund.de>
+Description: unitedSim C++ amateurs' lineups simulation code is not part of this package but might be added at some later stage.
+License: GPL-3
+Encoding: UTF-8
+Depends: 
+	gtools, 
+	data.table, 
+	parallel, 
+	readODS, 
+	checkmate
+RoxygenNote: 7.1.1
