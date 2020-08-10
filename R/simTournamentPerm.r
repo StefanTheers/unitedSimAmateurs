@@ -120,7 +120,7 @@ simTournamentPerm <- function(lineups, reps = 100, ncores = 8, sample = TRUE, sa
   cl <- makeCluster(rep("localhost", ncores), type = "SOCK")
   clusterSetRNGStream(cl)
   clusterExport(cl, list("perms", "simTournament", "reps", "lineups", "method", "repsGame",
-                         "tournament", "game", "Points.tournament", 
+                         "tournament", "game", "points.tournament",
                          "as.data.table.tournament", "data.table", ":=",
                          "as.data.table", "expGoals"),
                 envir = environment())

@@ -49,7 +49,7 @@ simTournament <- function(lineups, reps = 100, method = "sample", repsGame = 1) 
   X <- do.call(rbind, X)
 
   stages <- names(res[[1]])
-  resPoints <- do.call(cbind, lapply(res, Points.tournament))
+  resPoints <- do.call(cbind, lapply(res, points))
   numStages <- max(resPoints)
   points    <- rowMeans(resPoints)                                  # average points
   wonNumber <- apply(resPoints, 1, function(x) sum(x == numStages)) # number     of tournaments won

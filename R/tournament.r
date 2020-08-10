@@ -33,7 +33,7 @@
 #' set.seed(2020)
 #' res <- tournament(lineups)
 #' str(res)
-#' Points.tournament(res)
+#' points(res)
 #' as.data.table(res)
 #' res
 #'
@@ -103,7 +103,8 @@ tournament <- function(lineups, method = "sample", repsGame = 1) {
 #' @param x list of class "tournament"
 #' @return integer(1), vector of points awarded to each team.
 #'   1 point is awarded for each win.
-Points.tournament <- function(x) {
+#' @export
+points.tournament <- function(x) {
   points <- integer(nrow(attr(x, "lineups")))
   names(points) <- rownames(attr(x, "lineups"))
   for(s in seq_along(x)) {
@@ -118,6 +119,7 @@ Points.tournament <- function(x) {
 #' Print method for tournament objects
 #' @param x list of class "tournament"
 #' @return invisible(x)
+#' @export
 print.tournament <- function(x) {
   nam <- names(x)
   cat("\n")
@@ -129,7 +131,7 @@ print.tournament <- function(x) {
     cat("\n")
   }
   cat("\nThis leads to points awarded as follows:\n\n")
-  print(sort(Points(x), decreasing = TRUE))
+  print(sort(points(x), decreasing = TRUE))
   cat("\n")
   return(invisible(x))
 }
@@ -139,6 +141,7 @@ print.tournament <- function(x) {
 #' Convert a tournament object into a data.table
 #' @param x list of class "tournament"
 #' @return invisible(x)
+#' @export
 as.data.table.tournament <- function(x) {
   XX <- lapply(x, function(xx) {
     XXX <- lapply(xx, function(xxx) {
