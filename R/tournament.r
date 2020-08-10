@@ -33,7 +33,7 @@
 #' set.seed(2020)
 #' res <- tournament(lineups)
 #' str(res)
-#' points(res)
+#' Points.tournament(res)
 #' as.data.table(res)
 #' res
 #'
@@ -103,7 +103,7 @@ tournament <- function(lineups, method = "sample", repsGame = 1) {
 #' @param x list of class "tournament"
 #' @return integer(1), vector of points awarded to each team.
 #'   1 point is awarded for each win.
-points.tournament <- function(x) {
+Points.tournament <- function(x) {
   points <- integer(nrow(attr(x, "lineups")))
   names(points) <- rownames(attr(x, "lineups"))
   for(s in seq_along(x)) {
@@ -129,7 +129,7 @@ print.tournament <- function(x) {
     cat("\n")
   }
   cat("\nThis leads to points awarded as follows:\n\n")
-  print(sort(points(x), decreasing = TRUE))
+  print(sort(Points(x), decreasing = TRUE))
   cat("\n")
   return(invisible(x))
 }

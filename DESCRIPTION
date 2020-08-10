@@ -8,10 +8,10 @@ Maintainer: Stefan Theers <stefan.theers@tu-dortmund.de>
 Description: unitedSim C++ amateurs' lineups simulation code is not part of this package but might be added at some later stage.
 License: GPL-3
 Encoding: UTF-8
-Depends: 
-	gtools, 
-	data.table, 
-	parallel, 
-	readODS, 
-	checkmate
+Depends:
+	gtools,
+	readODS,
+	checkmate,
+	data.table,
+	parallel
 RoxygenNote: 7.1.1

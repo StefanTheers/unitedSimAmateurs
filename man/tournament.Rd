@@ -48,7 +48,7 @@ lineups2
 set.seed(2020)
 res <- tournament(lineups)
 str(res)
-points(res)
+Points.tournament(res)
 as.data.table(res)
 res
 

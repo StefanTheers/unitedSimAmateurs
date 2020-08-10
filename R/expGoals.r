@@ -1,5 +1,3 @@
-
-
 #' Calculates the expected goals of x1 vs x2 where
 #'   x1 = [t, a, v, m, s]'
 #'   x2 = [t, a, v, m, s]'
