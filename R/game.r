@@ -22,7 +22,6 @@
 #' @export
 #'
 #' @examples
-#' library("data.table")
 #' x1 <- c(t = 0,  a = 10, v = 16, m = 16, s = 48)
 #' x2 <- c(t = 10, a = 10, v = 36, m = 12, s = 12)
 #' set.seed(2020)

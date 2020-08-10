@@ -8,9 +8,9 @@ readLineups <- function(path = "data", nmr = "NMR-Amateure.ods") {
   teamsFiles <- list.files(path, pattern = ".ods")
   teamsFiles <- teamsFiles[- grep(nmr, teamsFiles)]
   teamsVec <- c()
-  nmrDat <- as.matrix(read_ods(file.path(path, nmr), col_types = NA, col_names = FALSE))
+  nmrDat <- as.matrix(readODS::read_ods(file.path(path, nmr), col_types = NA, col_names = FALSE))
   for(f in teamsFiles) {
-    dat <- as.matrix(read_ods(file.path(path, f), col_types = NA))
+    dat <- as.matrix(readODS::read_ods(file.path(path, f), col_types = NA))
     pos <- grep("Amateure:", dat)
     pos <- which(dat == dat[pos], arr.ind = TRUE)
     if(nrow(pos) != 1 | any(colnames(pos) != c("row", "col")) | !is.integer(pos[1, ]))
