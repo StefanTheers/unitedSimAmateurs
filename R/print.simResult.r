@@ -1,10 +1,16 @@
-#' Print method for objects of class "simResult"
-#' @param x object of class "simResult"
-#' @param printNum logical(1), print (and calculate) the numbers (cf. return)?
-#' @return invisible(list) with:
-#'   * summary: results summary and lineups (if available)
-#'   * nums:    integer(6) with the number of teams, tournaments, leagues, games,
-#'              games with extra-time and games with penalty shoot-outs
+#' \code{print} method for \code{simResult} objects
+#'
+#' @param x [object of S3 class \code{"simResult"}]\cr
+#'   result of a league or tournament simulation
+#' @param printNum [\code{logical(1)}]\cr
+#'   Print (and calculate) the numbers in \code{num}?
+#' @return \code{invisible(list)} with:
+#'   \describe{
+#'     \item{\code{summary}}{  [\code{data.table}]\cr results summary and lineups (if available) }
+#'     \item{\code{nums}}{  [\code{integer(6)}]\cr with the number of teams, tournaments, leagues, games, games with extra-time and games with penalty shoot-outs }
+#'   }
+#'
+#' @seealso \code{\link{simLeague}}, \code{\link{simTournament}}, \code{\link{simTournamentPerm}}, \code{\link{simAmateurs}}
 #' @export
 #'
 print.simResult <- function(x, printNum = TRUE) {

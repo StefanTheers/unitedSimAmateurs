@@ -1,24 +1,32 @@
-#' Play tournament.
-#' @param lineups (N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+#' Play tournament
+#'
+#' Play a complete tournament.
+#' The ordering of the rows of \code{lineups} determines the tournament:
+#' \itemize{
+#'   \item stage 1:\cr
+#'     row1 vs. row2 (determine winner1)\cr
+#'     row3 vs. row4 (determine winner2)\cr
+#'     ...
+#'   \item stage 2:\cr
+#'     winner1 vs. winner2\cr
+#'     winner3 vs. winner4\cr
+#'     ...
+#' }
+#' As many stages follow as necessary to determine an overall winner in a final stage, the final.
+#'
+#' @param lineups [\code{matrix}]\cr
+#'   (\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 #'   Column names are t,a,v,m,s.
 #'   Row names are the teams.
-#' @param method character(1), either "expected" or "sample" (default).
-#'   More details in game().
-#' @param repsGame integer(1), number of repetitions of each game (if method="sample").
-#'   Default is 1 (i.e. no repetitions). repsGame > 1 is NOT recommended for tournaments.
-#' @return list with results of class "tournament"
-#' @note
-#' * The row-wise order of lineups determines the tournament:
-#'   stage 1:
-#'     row1 vs. row2
-#'     row3 vs. row4
-#'     ...
-#'   stage 2:
-#'     winner1 vs. winner2
-#'     winner3 vs. winner4
-#'     ...
-#'   As many stages follow as necessary to determine an overall
-#'   winner in a final stage, the final.
+#' @param method [\code{character(1)}]\cr
+#'   either \code{"expected"} or \code{"sample"} (default).
+#'   More details in \code{\link{game}}.
+#' @param repsGame [\code{integer(1)}]\cr
+#'   number of repetitions of each game (if \code{method="sample"}).
+#'   Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.
+#' @return \code{list} with results of class \code{"tournament"}
+#' @seealso \code{\link{print.tournament}}, \code{\link{points.tournament}}, \code{\link{as.data.table.tournament}},
+#'   \code{\link{simTournament}}, \code{\link{simTournamentPerm}}, \code{\link{simAmateurs}}
 #' @export
 #'
 #' @examples
@@ -100,8 +108,9 @@ tournament <- function(lineups, method = "sample", repsGame = 1) {
 
 
 #' Award points to teams participating in a tournament
-#' @param x list of class "tournament"
-#' @return integer(1), vector of points awarded to each team.
+#' @param x [object of S3 class \code{"tournament"}]\cr
+#'   the return value of \code{\link{tournament}}
+#' @return \code{integer(}number of teams\code{)}, vector of points awarded to each team.
 #'   1 point is awarded for each win.
 #' @export
 points.tournament <- function(x) {
@@ -116,9 +125,10 @@ points.tournament <- function(x) {
 
 
 
-#' Print method for tournament objects
-#' @param x list of class "tournament"
-#' @return invisible(x)
+#' \code{print} method for \code{tournament} objects
+#' @param x [object of S3 class \code{"tournament"}]\cr
+#'   the return value of \code{\link{tournament}}
+#' @return \code{invisible(x)}
 #' @export
 print.tournament <- function(x) {
   nam <- names(x)
@@ -138,9 +148,11 @@ print.tournament <- function(x) {
 
 
 
-#' Convert a tournament object into a data.table
-#' @param x list of class "tournament"
-#' @return invisible(x)
+#' Convert a \code{tournament} object into a \code{data.table}
+#' @param x [object of S3 class \code{"tournament"}]\cr
+#'   the return value of \code{\link{tournament}}
+#' @return \code{data.table} with all tournament results
+#' @seealso \code{\link[data.table]{data.table}}, \code{\link{tournament}}
 #' @export
 as.data.table.tournament <- function(x) {
   XX <- lapply(x, function(xx) {

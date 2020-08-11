@@ -2,22 +2,30 @@
 % Please edit documentation in R/game.r
 \name{print.game}
 \alias{print.game}
-\title{Print method for game objects}
+\title{\code{print} method for \code{game} objects}
 \usage{
 \method{print}{game}(x, extratime = "n.V.", penalty = "i.E.", teamnames = NULL)
 }
 \arguments{
-\item{x}{object of class "game"}
+\item{x}{[object of S3 class \code{"game"}]\cr
+a game result returned by \code{\link{game}}}
 
-\item{extratime}{character(1), what to add for extra time result}
+\item{extratime}{[\code{character(1)}]\cr
+what to append for the extra time result}
 
-\item{penalty}{character(1), what to add for penalty shoot-out result}
+\item{penalty}{[\code{character(1)}]\cr
+what to append for the penalty shoot-out result}
 
-\item{teamnames}{NULL or character(2), team names if known}
+\item{teamnames}{[\code{NULL} or \code{character(2)}]\cr
+team names (if known)}
 }
 \value{
-invisible(character(1))
+\code{invisible(character(1))},
+  the nicely formatted game result
 }
 \description{
-Print method for game objects
+\code{print} method for \code{game} objects
+}
+\seealso{
+\code{\link{game}} for a single game and \code{\link{gameRep}} for a game repeated multiple times
 }

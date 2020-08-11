@@ -2,16 +2,17 @@
 % Please edit documentation in R/tournament.r
 \name{print.tournament}
 \alias{print.tournament}
-\title{Print method for tournament objects}
+\title{\code{print} method for \code{tournament} objects}
 \usage{
 \method{print}{tournament}(x)
 }
 \arguments{
-\item{x}{list of class "tournament"}
+\item{x}{[object of S3 class \code{"tournament"}]\cr
+the return value of \code{\link{tournament}}}
 }
 \value{
-invisible(x)
+\code{invisible(x)}
 }
 \description{
-Print method for tournament objects
+\code{print} method for \code{tournament} objects
 }

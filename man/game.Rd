@@ -2,40 +2,52 @@
 % Please edit documentation in R/game.r
 \name{game}
 \alias{game}
-\title{Samples the number of goals scored in a game of x1 vx. x2.}
+\title{Play a game \code{x1} vs. \code{x2}}
 \usage{
 game(x1, x2, etps = TRUE, method = "sample")
 }
 \arguments{
-\item{x1}{integer(5), named team vector of team 1}
+\item{x1}{[\code{integer(5)}]\cr
+named team vector of team 1}
 
-\item{x2}{integer(5), named team vector of team 2}
+\item{x2}{[\code{integer(5)}]\cr
+named team vector of team 2}
 
-\item{etps}{logical(1), play etra time and penalty shoot-out? Default is TRUE.}
+\item{etps}{[\code{logical(1)}]\cr
+Play extra time and penalty shoot-out? Default is \code{TRUE}.}
 
-\item{method}{character(1), either "expected" or "sample" (default).
-If method="expected", use rounded (!) expected goals when determining
+\item{method}{[\code{character(1)}]\cr
+Either \code{"expected"} or \code{"sample"} (default).
+If \code{method="expected"}, use expected goals when determining
 the result of a game.
-This means that the better lineup will win.
-Examples for expected goals:
-0.4:0 (draw 0:0), 0.6:0.4 (x1 wins 1:0), 2.9:4.4 (x2 wins 3:4).
-If method="sample", sample the result.
-This means that the better lineup will not necessarily win.}
+This means that the better lineup will win. \cr
+If \code{method="sample"}, sample the result.
+This means that the better lineup will not necessarily win, but
+is has a higher probability to do so.}
 }
 \value{
-integer(2), the number of goals scored by x1 and x2.
-  The return value of class "game" has extra attributes:
-  * fullTimeScore:   integer(2)
-  * extraTimeScore:  integer(2)
-  * penalties:       integer(2)
+object of S3 class \code{game} consisting of \code{integer(2)}, the overall number of goals
+  scored by \code{x1} and \code{x2} with extra attributes:
+  \describe{
+    \item{\code{fullTimeScore}}{  [\code{integer(2)}]\cr full-time scoreline }
+    \item{\code{extraTimeScore}}{ [\code{integer(2)}]\cr extra-time result }
+    \item{\code{penalties}}{      [\code{integer(2)}]\cr penalty shoot-out result }
+  }
 }
 \description{
-Samples the number of goals scored in a game of x1 vx. x2.
+Either samples the number of goals scored in a game of \code{x1} vs. \code{x2}
+(\code{method="sample"}) or returns the number of expected goals of each team
+(\code{method="expected"}).
 }
 \note{
-* Simulation and variable naming similar to a
-    light version of playRound() in bfbunited for method="sample".
-  * It is highly recommended to use method="sample", cf. examples.
+\itemize{
+    \item Code structure and variable naming are very similar to a
+      light version of \code{playRound} in
+      \href{https://gitlab.com/fchalligalli/bfbunited}{\code{bfbunited}} for \code{method="sample"}.
+    \item It is highly recommended to use \code{method="sample"}, cf. examples.
+    \item Rounding the results would yield:
+      0.4:0 (draw 0:0), 0.6:0.4 (\code{x1} wins 1:0), 2.9:4.4 (\code{x2} wins 3:4).
+  }
 }
 \examples{
 x1 <- c(t = 0,  a = 10, v = 16, m = 16, s = 48)
@@ -71,7 +83,7 @@ mean(apply(tmp, 2, function(x) x[2] > x[1]))
 c(expGoals(x1, x2), expGoals(x2, x1))
 game(x1, x2, method = "expected")        # same as method="expected"
 
-# If we repeat the sampling approach sufficiently engough, do we converge to
+# If we repeat the sampling approach sufficiently often, do we converge to
 # the expected result?
 set.seed(2020)
 res <- as.data.table(t(replicate(50, game(x1, x2, etps = FALSE, method = "sample"))))
@@ -89,4 +101,8 @@ legend("topright", legend = c("team 1", "team 2", "team 1 + 2 in case of draw (m
 # NOT to use method="expected".
 # => Replicate a game 20 times and use method="sample".
 
+}
+\seealso{
+\code{\link{print.game}}, \code{\link{gameRep}} for a game repeated multiple times,
+  \code{\link{league}}, \code{\link{tournament}}
 }

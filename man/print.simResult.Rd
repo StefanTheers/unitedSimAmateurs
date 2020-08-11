@@ -2,21 +2,27 @@
 % Please edit documentation in R/print.simResult.r
 \name{print.simResult}
 \alias{print.simResult}
-\title{Print method for objects of class "simResult"}
+\title{\code{print} method for \code{simResult} objects}
 \usage{
 \method{print}{simResult}(x, printNum = TRUE)
 }
 \arguments{
-\item{x}{object of class "simResult"}
+\item{x}{[object of S3 class \code{"simResult"}]\cr
+result of a league or tournament simulation}
 
-\item{printNum}{logical(1), print (and calculate) the numbers (cf. return)?}
+\item{printNum}{[\code{logical(1)}]\cr
+Print (and calculate) the numbers in \code{num}?}
 }
 \value{
-invisible(list) with:
-  * summary: results summary and lineups (if available)
-  * nums:    integer(6) with the number of teams, tournaments, leagues, games,
-             games with extra-time and games with penalty shoot-outs
+\code{invisible(list)} with:
+  \describe{
+    \item{\code{summary}}{  [\code{data.table}]\cr results summary and lineups (if available) }
+    \item{\code{nums}}{  [\code{integer(6)}]\cr with the number of teams, tournaments, leagues, games, games with extra-time and games with penalty shoot-outs }
+  }
 }
 \description{
-Print method for objects of class "simResult"
+\code{print} method for \code{simResult} objects
+}
+\seealso{
+\code{\link{simLeague}}, \code{\link{simTournament}}, \code{\link{simTournamentPerm}}, \code{\link{simAmateurs}}
 }

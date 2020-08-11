@@ -2,26 +2,38 @@
 % Please edit documentation in R/drawPerm.r
 \name{drawPerm}
 \alias{drawPerm}
-\title{Calculation of permutations of all possible draws}
+\title{Calculation of permutations of possible draws}
 \usage{
 drawPerm(n, sample = TRUE, sample.size = 10)
 }
 \arguments{
-\item{n}{integer(1), number of teams}
+\item{n}{[\code{integer(1)}]\cr
+number of teams}
 
-\item{sample}{logical(1), TRUE if only a sample of size sample.size
+\item{sample}{[\code{logical(1)}]\cr
+TRUE if only a sample of size \code{sample.size}
 of all possible draws is returned (with replacement of draws)}
 
-\item{sample.size}{integer(1), sample size}
+\item{sample.size}{[\code{integer(1)}]\cr
+sample size}
 }
 \value{
-(n x m)-dim. matrix where m=factorial(n) if sample=FALSE or
-  m=sample.size if sample=TRUE.
+(\code{n} x \code{m})-dim. matrix where \code{m=factorial(n)} if \code{sample=FALSE} or
+  \code{m=sample.size} if \code{sample=TRUE}.
 }
 \description{
-Calculation of permutations of all possible draws
+For \code{n} teams \code{1,...,n}, the function either calculates all possible \code{n!} draws
+or samples \code{sample.size} random draws (with repetition).
 }
 \note{
 Stay away from simulating all possible draws if there are more
-  than 8 teams competing in your tournament. Use sample=TRUE.
+  than 8 teams competing in your tournament. Use \code{sample=TRUE}.
+}
+\examples{
+drawPerm(4, sample = FALSE)
+drawPerm(4, sample = TRUE, sample.size = 15)
+
+}
+\seealso{
+\code{\link{simTournamentPerm}}
 }

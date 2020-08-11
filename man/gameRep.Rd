@@ -2,24 +2,38 @@
 % Please edit documentation in R/game.r
 \name{gameRep}
 \alias{gameRep}
-\title{Internal helper function that calls game() repsGame-times}
+\title{Play a game multiple times}
 \usage{
 gameRep(x1, x2, etps = TRUE, method = "sample", repsGame = 4)
 }
 \arguments{
-\item{x1}{integer(5), named team vector of team 1}
+\item{x1}{[\code{integer(5)}]\cr
+named team vector of team 1}
 
-\item{x2}{integer(5), named team vector of team 2}
+\item{x2}{[\code{integer(5)}]\cr
+named team vector of team 2}
 
-\item{etps}{logical(1), play etra time and penalty shoot-out? Default is TRUE.}
+\item{etps}{[\code{logical(1)}]\cr
+Play extra time and penalty shoot-out? Default is \code{TRUE}.}
 
-\item{method}{character(1), either "expected" or "sample" (default).}
+\item{method}{[\code{character(1)}]\cr}
 
-\item{repsGame}{integer(1), number of replications}
+\item{repsGame}{[\code{integer(1)}]\cr
+number of replications}
 }
 \value{
-integer(2) as in game()
+object of S3 class \code{game} consisting of \code{integer(2)}, the overall mean number of goals
+  per game scored by \code{x1} and \code{x2} with extra attributes:
+  \describe{
+    \item{\code{fullTimeScore}}{  [\code{integer(2)}]\cr full-time scoreline }
+    \item{\code{extraTimeScore}}{ [\code{integer(2)}]\cr extra-time result }
+    \item{\code{penalties}}{      [\code{integer(2)}]\cr penalty shoot-out result }
+    \item{\code{repScores}}{      [\code{data.table}]\cr table of all results }
+  }
 }
 \description{
-Internal helper function that calls game() repsGame-times
+Helper function that calls \code{\link{game}} \code{repsGame}-times.
+}
+\seealso{
+\code{\link{game}} for a single game, \code{\link{print.game}}
 }

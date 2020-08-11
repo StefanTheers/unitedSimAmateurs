@@ -2,8 +2,7 @@
 % Please edit documentation in R/simAmateurs.r
 \name{simAmateurs}
 \alias{simAmateurs}
-\title{Simulation of a tournament without fixed lineups, i.e. allowing for
-permutations of the lineup matrix, plus league}
+\title{Tournament and league simulation}
 \usage{
 simAmateurs(
   lineups,
@@ -16,37 +15,45 @@ simAmateurs(
 )
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{reps}{integer(3), named vector of the number of replications of a single tournament
-("tournament"), of a single league ("league") and a single game ("game", only used for the league).
+\item{reps}{[\code{integer(3)}]\cr
+named vector of the number of replications of a single tournament
+(\code{"tournament"}), of a single league (\code{"league"}) and a single game
+(\code{"game"}, only used for the league).
 Tournament games are NOT played multiple times.}
 
-\item{ncores}{integer(1), number of processor cores for parallelization}
+\item{ncores}{[\code{integer(1)}]\cr
+number of processor cores for parallelization}
 
-\item{sample}{logical(1), should a sample of possible tournament draws be used?
-If FALSE, then all possible draws are used (which might be computationally infeasible
+\item{sample}{[\code{logical(1)}]\cr
+Should a sample of possible tournament draws be used?
+If \code{FALSE}, then all possible draws are used (which might be computationally infeasible
 for more than 8 participating teams).}
 
-\item{sample.size}{integer(1), the number of tournament draw samples drawn if sample=TRUE.}
+\item{sample.size}{[\code{integer(1)}]\cr
+the number of tournament draw samples drawn if \code{sample=TRUE}.}
 
-\item{method}{character(1), either "expected" or "sample" (default)
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{competition}{character(1), which competition should be played? Either "tournament",
-"league" or "both" (default).}
+\item{competition}{[\code{character(1)}]\cr
+Which competition should be played? Either \code{"tournament"},
+\code{"league"} or \code{"both"} (default).}
 }
 \value{
-list of simTournamentPerm() and simLeague() return values
+list of \code{\link{simTournamentPerm}} and \code{\link{simLeague}} return values
 }
 \description{
-Simulation of a tournament without fixed lineups, i.e. allowing for
-permutations of the lineup matrix, plus league
+To simulate a tournament without fixed lineups, i.e. allowing for
+permutations of the lineup matrix, plus a league, it is only necessary to
+call \code{simAmateurs} once.
 }
 \examples{
-
 # define some lineups:
 lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
 rownames(lineups) <- c("Nob", "FdS", "USV", "Marco")
@@ -81,4 +88,8 @@ res64     ##save(res64, file = "res64.rdata")
 }
 
 
+}
+\seealso{
+\code{simAmateurs} calls \code{\link{simTournamentPerm}} and \code{\link{simLeague}}
+  one after another.
 }

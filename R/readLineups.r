@@ -1,7 +1,13 @@
-#' Read data from ZAT .ods files
-#' @param path character(1), path of folder with lineup files
-#' @param nmr character(1), name of NMR file in the same folder
-#' @return correctly named lineup matrix that can be used as input for tournament()
+#' Read data from ZAT \code{.ods} files
+#'
+#' This function automatically reads data from ZAT \code{.ods} files that have to be
+#' formatted as defined in \href{https://gitlab.com/fchalligalli/bfbunited}{\code{bfbunited}}.
+#'
+#' @param path [\code{character(1)}]\cr
+#'   path of folder with \code{.ods} lineup files
+#' @param nmr [\code{character(1)}]\cr
+#'   name of NMR \code{.ods} file in the same folder
+#' @return correctly named lineup matrix that can be used as input for \code{\link{tournament}} or \code{\link{league}}
 #' @export
 #'
 readLineups <- function(path = "data", nmr = "NMR-Amateure.ods") {

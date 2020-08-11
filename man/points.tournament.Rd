@@ -7,10 +7,11 @@
 \method{points}{tournament}(x)
 }
 \arguments{
-\item{x}{list of class "tournament"}
+\item{x}{[object of S3 class \code{"tournament"}]\cr
+the return value of \code{\link{tournament}}}
 }
 \value{
-integer(1), vector of points awarded to each team.
+\code{integer(}number of teams\code{)}, vector of points awarded to each team.
   1 point is awarded for each win.
 }
 \description{

@@ -1,24 +1,43 @@
-#' Samples the number of goals scored in a game of x1 vx. x2.
-#' @param x1 integer(5), named team vector of team 1
-#' @param x2 integer(5), named team vector of team 2
-#' @param etps logical(1), play etra time and penalty shoot-out? Default is TRUE.
-#' @param method character(1), either "expected" or "sample" (default).
-#'   If method="expected", use rounded (!) expected goals when determining
+#' Play a game \code{x1} vs. \code{x2}
+#'
+#' Either samples the number of goals scored in a game of \code{x1} vs. \code{x2}
+#' (\code{method="sample"}) or returns the number of expected goals of each team
+#' (\code{method="expected"}).
+#'
+#' @param x1 [\code{integer(5)}]\cr
+#'   named team vector of team 1
+#' @param x2 [\code{integer(5)}]\cr
+#'   named team vector of team 2
+#' @param etps [\code{logical(1)}]\cr
+#'   Play extra time and penalty shoot-out? Default is \code{TRUE}.
+#' @param method [\code{character(1)}]\cr
+#'   Either \code{"expected"} or \code{"sample"} (default).
+#'   If \code{method="expected"}, use expected goals when determining
 #'   the result of a game.
-#'   This means that the better lineup will win.
-#'   Examples for expected goals:
-#'   0.4:0 (draw 0:0), 0.6:0.4 (x1 wins 1:0), 2.9:4.4 (x2 wins 3:4).
-#'   If method="sample", sample the result.
-#'   This means that the better lineup will not necessarily win.
-#' @return integer(2), the number of goals scored by x1 and x2.
-#'   The return value of class "game" has extra attributes:
-#'   * fullTimeScore:   integer(2)
-#'   * extraTimeScore:  integer(2)
-#'   * penalties:       integer(2)
+#'   This means that the better lineup will win. \cr
+#'   If \code{method="sample"}, sample the result.
+#'   This means that the better lineup will not necessarily win, but
+#'   is has a higher probability to do so.
+#' @return object of S3 class \code{game} consisting of \code{integer(2)}, the overall number of goals
+#'   scored by \code{x1} and \code{x2} with extra attributes:
+#'   \describe{
+#'     \item{\code{fullTimeScore}}{  [\code{integer(2)}]\cr full-time scoreline }
+#'     \item{\code{extraTimeScore}}{ [\code{integer(2)}]\cr extra-time result }
+#'     \item{\code{penalties}}{      [\code{integer(2)}]\cr penalty shoot-out result }
+#'   }
 #' @note
-#'   * Simulation and variable naming similar to a
-#'     light version of playRound() in bfbunited for method="sample".
-#'   * It is highly recommended to use method="sample", cf. examples.
+#'   \itemize{
+#'     \item Code structure and variable naming are very similar to a
+#'       light version of \code{playRound} in
+#'       \href{https://gitlab.com/fchalligalli/bfbunited}{\code{bfbunited}} for \code{method="sample"}.
+#'     \item It is highly recommended to use \code{method="sample"}, cf. examples.
+#'     \item Rounding the results would yield:
+#'       0.4:0 (draw 0:0), 0.6:0.4 (\code{x1} wins 1:0), 2.9:4.4 (\code{x2} wins 3:4).
+#'   }
+#' @seealso
+#'   \code{\link{print.game}}, \code{\link{gameRep}} for a game repeated multiple times,
+#'   \code{\link{league}}, \code{\link{tournament}}
+#'
 #' @export
 #'
 #' @examples
@@ -55,7 +74,7 @@
 #' c(expGoals(x1, x2), expGoals(x2, x1))
 #' game(x1, x2, method = "expected")        # same as method="expected"
 #'
-#' # If we repeat the sampling approach sufficiently engough, do we converge to
+#' # If we repeat the sampling approach sufficiently often, do we converge to
 #' # the expected result?
 #' set.seed(2020)
 #' res <- as.data.table(t(replicate(50, game(x1, x2, etps = FALSE, method = "sample"))))
@@ -146,12 +165,20 @@ game <- function(x1, x2, etps = TRUE, method = "sample") {
 
 
 
-#' Print method for game objects
-#' @param x object of class "game"
-#' @param extratime character(1), what to add for extra time result
-#' @param penalty character(1), what to add for penalty shoot-out result
-#' @param teamnames NULL or character(2), team names if known
-#' @return invisible(character(1))
+#' \code{print} method for \code{game} objects
+#'
+#' @param x [object of S3 class \code{"game"}]\cr
+#'   a game result returned by \code{\link{game}}
+#' @param extratime [\code{character(1)}]\cr
+#'   what to append for the extra time result
+#' @param penalty [\code{character(1)}]\cr
+#'   what to append for the penalty shoot-out result
+#' @param teamnames [\code{NULL} or \code{character(2)}]\cr
+#'   team names (if known)
+#' @return \code{invisible(character(1))},
+#'   the nicely formatted game result
+#' @seealso
+#' \code{\link{game}} for a single game and \code{\link{gameRep}} for a game repeated multiple times
 #' @export
 print.game <- function(x, extratime = "n.V.", penalty = "i.E.", teamnames = NULL) {
   res <- paste(x, collapse = ":")
@@ -169,13 +196,29 @@ print.game <- function(x, extratime = "n.V.", penalty = "i.E.", teamnames = NULL
 
 
 
-#' Internal helper function that calls game() repsGame-times
-#' @param x1 integer(5), named team vector of team 1
-#' @param x2 integer(5), named team vector of team 2
-#' @param etps logical(1), play etra time and penalty shoot-out? Default is TRUE.
-#' @param method character(1), either "expected" or "sample" (default).
-#' @param repsGame integer(1), number of replications
-#' @return integer(2) as in game()
+#' Play a game multiple times
+#'
+#' Helper function that calls \code{\link{game}} \code{repsGame}-times.
+#'
+#' @param x1 [\code{integer(5)}]\cr
+#'   named team vector of team 1
+#' @param x2 [\code{integer(5)}]\cr
+#'   named team vector of team 2
+#' @param etps [\code{logical(1)}]\cr
+#'   Play extra time and penalty shoot-out? Default is \code{TRUE}.
+#' @param method [\code{character(1)}]\cr
+#' @param repsGame [\code{integer(1)}]\cr
+#'   number of replications
+#' @return object of S3 class \code{game} consisting of \code{integer(2)}, the overall mean number of goals
+#'   per game scored by \code{x1} and \code{x2} with extra attributes:
+#'   \describe{
+#'     \item{\code{fullTimeScore}}{  [\code{integer(2)}]\cr full-time scoreline }
+#'     \item{\code{extraTimeScore}}{ [\code{integer(2)}]\cr extra-time result }
+#'     \item{\code{penalties}}{      [\code{integer(2)}]\cr penalty shoot-out result }
+#'     \item{\code{repScores}}{      [\code{data.table}]\cr table of all results }
+#'   }
+#' @seealso
+#' \code{\link{game}} for a single game, \code{\link{print.game}}
 #' @export
 gameRep <- function(x1, x2, etps = TRUE, method = "sample", repsGame = 4) {
   res <- replicate(repsGame, game(x1, x2, etps = etps, method = method), simplify = FALSE)

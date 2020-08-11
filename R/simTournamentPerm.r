@@ -1,24 +1,37 @@
+#' Simulation of a tournament without fixed lineups
+#'
 #' Simulation of a tournament without fixed lineups, i.e. allowing for
-#' permutations of the lineup matrix
-#' @param lineups (N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+#' permutations of the lineup matrix.
+#'
+#' @param lineups [\code{matrix}]\cr
+#'   (\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 #'   Column names are t,a,v,m,s.
 #'   Row names are the teams.
-#' @param reps integer(1), number of replications of single tournament
-#' @param ncores integer(1), number of processor cores for parallelization
-#' @note Note that (A:B, C:D) and (D:C, B:A) etc. are the same tournament!
-#' @param sample logical(1), should a sample of possible tournament draws be used?
-#'   If FALSE, then all possible draws are used (which might be computationally infeasible
+#' @param reps [\code{integer(1)}]\cr
+#'   number of replications of the single tournament
+#' @param ncores [\code{integer(1)}]\cr
+#'   number of processor cores for parallelization
+#' @param sample [\code{logical(1)}]\cr
+#'   Should a sample of possible tournament draws be used?
+#'   If \code{FALSE}, then all possible draws are used (which might be computationally infeasible
 #'   for more than 8 participating teams).
-#' @param sample.size integer(1), the number of tournament draw samples drawn if sample=TRUE.
-#' @param method character(1), either "expected" or "sample" (default)
-#'   More details in game().
-#' @param repsGame integer(1), number of repetitions of each game (if method="sample").
-#'   Default is 1 (i.e. no repetitions). repsGame > 1 is NOT recommended for tournaments.
-#' @return list of class "simResult" with:
-#'   * results: data.table with the results of every game
-#'   * summary: data.table with points won by the teams
-#'   * lineups: the lineups input parameter matrix
-#'   * resultsTournament: list of created tournament objects
+#' @param sample.size [\code{integer(1)}]\cr
+#'   the number of tournament draw samples drawn if \code{sample=TRUE}.
+#' @param method [\code{character(1)}]\cr
+#'   either \code{"expected"} or \code{"sample"} (default).
+#'   More details in \code{\link{game}}.
+#' @param repsGame [\code{integer(1)}]\cr
+#'   number of repetitions of each game (if \code{method="sample"}).
+#'   Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.
+#' @return list of S3 class \code{"simResult"} with:
+#' \describe{
+#'   \item{\code{results}}{  [\code{data.table}]\cr results of every game }
+#'   \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
+#'   \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
+#'   \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects }
+#' }
+#' @note Note that (A:B, C:D) and (D:C, B:A) etc. are the same tournament!
+#' @seealso \code{\link{tournament}}, \code{\link{simTournament}}, \code{\link{simAmateurs}}, \code{\link{drawPerm}}
 #' @export
 #'
 #' @examples

@@ -2,18 +2,21 @@
 % Please edit documentation in R/readLineups.r
 \name{readLineups}
 \alias{readLineups}
-\title{Read data from ZAT .ods files}
+\title{Read data from ZAT \code{.ods} files}
 \usage{
 readLineups(path = "data", nmr = "NMR-Amateure.ods")
 }
 \arguments{
-\item{path}{character(1), path of folder with lineup files}
+\item{path}{[\code{character(1)}]\cr
+path of folder with \code{.ods} lineup files}
 
-\item{nmr}{character(1), name of NMR file in the same folder}
+\item{nmr}{[\code{character(1)}]\cr
+name of NMR \code{.ods} file in the same folder}
 }
 \value{
-correctly named lineup matrix that can be used as input for tournament()
+correctly named lineup matrix that can be used as input for \code{\link{tournament}} or \code{\link{league}}
 }
 \description{
-Read data from ZAT .ods files
+This function automatically reads data from ZAT \code{.ods} files that have to be
+formatted as defined in \href{https://gitlab.com/fchalligalli/bfbunited}{\code{bfbunited}}.
 }

@@ -2,34 +2,43 @@
 % Please edit documentation in R/league.r
 \name{league}
 \alias{league}
-\title{Play league.}
+\title{Play league}
 \usage{
 league(lineups, method = "sample", repsGame = 1)
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{method}{character(1), either "expected" or "sample" (default).
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+Either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{repsGame}{integer(1), number of repetitions of each game (if method="sample").
+\item{repsGame}{[\code{integer(1)}]\cr
+Number of repetitions of each game (if \code{method="sample"}).
 Default is 1 (i.e. no repetitions).}
 }
 \value{
-list of class "league" that contains:
-  * points, a data.table with the points reached by each team
-  * results, a data.table with the full-time results
-  * resultsFull, a data.table with all full-time results (i.e. repetitions of the very same game
-    are included if repsGame > 1).
+object of S3 class \code{league}, a \code{list} with:
+  \describe{
+    \item{\code{points}}{  [\code{data.table}]\cr points reached by each team }
+    \item{\code{results}}{ [\code{data.table}]\cr full-time results }
+    \item{\code{resultsFull}}{  [\code{data.table}]\cr all full-time results (i.e. repetitions of the
+                                 very same game are included if \code{repsGame} > 1) }
+  }
 }
 \description{
-Play league.
+Play a league with teams defined in the \code{lineups} matrix.
 }
 \note{
-* No home or away games are supported.
-* If you use method="sample" and repsGame > 1, league$results will contain non-integer scores and points.
+\itemize{
+  \item No support for home or away games.
+  \item If you use \code{method="sample"} and \code{repsGame} > 1, \code{league$results}
+    will contain non-integer scorelines and points.
+  \item The \code{\link{print.league}} method displays the results of the teams ordered by points.
+}
 }
 \examples{
 lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
@@ -45,4 +54,7 @@ league(lineups, method = "expected")               # always the same
 league(lineups, method = "sample", repsGame = 20)  # 20x repetition of each game => more exact results
 league(lineups, method = "sample", repsGame = 20)  # close to the previous league simulation
 
+}
+\seealso{
+\code{\link{print.league}}, \code{\link{game}}, \code{\link{simLeague}}, \code{\link{simAmateurs}}
 }

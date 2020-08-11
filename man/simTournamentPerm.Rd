@@ -2,8 +2,7 @@
 % Please edit documentation in R/simTournamentPerm.r
 \name{simTournamentPerm}
 \alias{simTournamentPerm}
-\title{Simulation of a tournament without fixed lineups, i.e. allowing for
-permutations of the lineup matrix}
+\title{Simulation of a tournament without fixed lineups}
 \usage{
 simTournamentPerm(
   lineups,
@@ -16,36 +15,45 @@ simTournamentPerm(
 )
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{reps}{integer(1), number of replications of single tournament}
+\item{reps}{[\code{integer(1)}]\cr
+number of replications of the single tournament}
 
-\item{ncores}{integer(1), number of processor cores for parallelization}
+\item{ncores}{[\code{integer(1)}]\cr
+number of processor cores for parallelization}
 
-\item{sample}{logical(1), should a sample of possible tournament draws be used?
-If FALSE, then all possible draws are used (which might be computationally infeasible
+\item{sample}{[\code{logical(1)}]\cr
+Should a sample of possible tournament draws be used?
+If \code{FALSE}, then all possible draws are used (which might be computationally infeasible
 for more than 8 participating teams).}
 
-\item{sample.size}{integer(1), the number of tournament draw samples drawn if sample=TRUE.}
+\item{sample.size}{[\code{integer(1)}]\cr
+the number of tournament draw samples drawn if \code{sample=TRUE}.}
 
-\item{method}{character(1), either "expected" or "sample" (default)
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{repsGame}{integer(1), number of repetitions of each game (if method="sample").
-Default is 1 (i.e. no repetitions). repsGame > 1 is NOT recommended for tournaments.}
+\item{repsGame}{[\code{integer(1)}]\cr
+number of repetitions of each game (if \code{method="sample"}).
+Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.}
 }
 \value{
-list of class "simResult" with:
-  * results: data.table with the results of every game
-  * summary: data.table with points won by the teams
-  * lineups: the lineups input parameter matrix
-  * resultsTournament: list of created tournament objects
+list of S3 class \code{"simResult"} with:
+\describe{
+  \item{\code{results}}{  [\code{data.table}]\cr results of every game }
+  \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
+  \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
+  \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects }
+}
 }
 \description{
 Simulation of a tournament without fixed lineups, i.e. allowing for
-permutations of the lineup matrix
+permutations of the lineup matrix.
 }
 \note{
 Note that (A:B, C:D) and (D:C, B:A) etc. are the same tournament!
@@ -136,4 +144,7 @@ length(unique(res$results[, tournamentID])) # =     5 * 100  tournaments
 nrow(res$results)                           # = 3 * 5 * 1500 games
 
 
+}
+\seealso{
+\code{\link{tournament}}, \code{\link{simTournament}}, \code{\link{simAmateurs}}, \code{\link{drawPerm}}
 }

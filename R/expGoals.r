@@ -1,9 +1,14 @@
-#' Calculates the expected goals of x1 vs x2 where
-#'   x1 = [t, a, v, m, s]'
-#'   x2 = [t, a, v, m, s]'
-#' @param x1 integer(5), named team vector of team 1
-#' @param x2 integer(5), named team vector of team 2
-#' @return numeric(1), expected goals of team 1 vs. team 2
+#' Calculation of expected goals
+#'
+#' Calculates the expected goals of \code{x1} vs \code{x2} where
+#'   \code{ x1 = [t, a, v, m, s] } and
+#'   \code{ x2 = [t, a, v, m, s] }.
+#'
+#' @param x1 [\code{integer(5)}]\cr
+#'   named team vector of team 1
+#' @param x2 [\code{integer(5)}]\cr
+#'   named team vector of team 2
+#' @return \code{numeric(1)}, expected goals of team 1 vs. team 2
 #' @export
 #'
 #' @examples

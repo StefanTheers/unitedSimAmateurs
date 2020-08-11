@@ -2,16 +2,20 @@
 % Please edit documentation in R/tournament.r
 \name{as.data.table.tournament}
 \alias{as.data.table.tournament}
-\title{Convert a tournament object into a data.table}
+\title{Convert a \code{tournament} object into a \code{data.table}}
 \usage{
 \method{as.data.table}{tournament}(x)
 }
 \arguments{
-\item{x}{list of class "tournament"}
+\item{x}{[object of S3 class \code{"tournament"}]\cr
+the return value of \code{\link{tournament}}}
 }
 \value{
-invisible(x)
+\code{data.table} with all tournament results
 }
 \description{
-Convert a tournament object into a data.table
+Convert a \code{tournament} object into a \code{data.table}
+}
+\seealso{
+\code{\link[data.table]{data.table}}, \code{\link{tournament}}
 }

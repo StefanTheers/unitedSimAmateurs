@@ -2,39 +2,41 @@
 % Please edit documentation in R/tournament.r
 \name{tournament}
 \alias{tournament}
-\title{Play tournament.}
+\title{Play tournament}
 \usage{
 tournament(lineups, method = "sample", repsGame = 1)
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{method}{character(1), either "expected" or "sample" (default).
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{repsGame}{integer(1), number of repetitions of each game (if method="sample").
-Default is 1 (i.e. no repetitions). repsGame > 1 is NOT recommended for tournaments.}
+\item{repsGame}{[\code{integer(1)}]\cr
+number of repetitions of each game (if \code{method="sample"}).
+Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.}
 }
 \value{
-list with results of class "tournament"
+\code{list} with results of class \code{"tournament"}
 }
 \description{
-Play tournament.
+Play a complete tournament.
+The ordering of the rows of \code{lineups} determines the tournament:
+\itemize{
+  \item stage 1:\cr
+    row1 vs. row2 (determine winner1)\cr
+    row3 vs. row4 (determine winner2)\cr
+    ...
+  \item stage 2:\cr
+    winner1 vs. winner2\cr
+    winner3 vs. winner4\cr
+    ...
 }
-\note{
-* The row-wise order of lineups determines the tournament:
-  stage 1:
-    row1 vs. row2
-    row3 vs. row4
-    ...
-  stage 2:
-    winner1 vs. winner2
-    winner3 vs. winner4
-    ...
-  As many stages follow as necessary to determine an overall
-  winner in a final stage, the final.
+As many stages follow as necessary to determine an overall winner in a final stage, the final.
 }
 \examples{
 # define some lineups:
@@ -67,4 +69,8 @@ set.seed(2020)
 as.data.table(res)
 # => Here, we we actually have decisions without extra time.
 
+}
+\seealso{
+\code{\link{print.tournament}}, \code{\link{points.tournament}}, \code{\link{as.data.table.tournament}},
+  \code{\link{simTournament}}, \code{\link{simTournamentPerm}}, \code{\link{simAmateurs}}
 }

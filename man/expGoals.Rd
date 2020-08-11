@@ -2,24 +2,24 @@
 % Please edit documentation in R/expGoals.r
 \name{expGoals}
 \alias{expGoals}
-\title{Calculates the expected goals of x1 vs x2 where
-  x1 = [t, a, v, m, s]'
-  x2 = [t, a, v, m, s]'}
+\title{Calculation of expected goals}
 \usage{
 expGoals(x1, x2)
 }
 \arguments{
-\item{x1}{integer(5), named team vector of team 1}
+\item{x1}{[\code{integer(5)}]\cr
+named team vector of team 1}
 
-\item{x2}{integer(5), named team vector of team 2}
+\item{x2}{[\code{integer(5)}]\cr
+named team vector of team 2}
 }
 \value{
-numeric(1), expected goals of team 1 vs. team 2
+\code{numeric(1)}, expected goals of team 1 vs. team 2
 }
 \description{
-Calculates the expected goals of x1 vs x2 where
-  x1 = [t, a, v, m, s]'
-  x2 = [t, a, v, m, s]'
+Calculates the expected goals of \code{x1} vs \code{x2} where
+  \code{ x1 = [t, a, v, m, s] } and
+  \code{ x2 = [t, a, v, m, s] }.
 }
 \examples{
 x1 <- c(t = 0,  a = 10, v = 16, m = 16, s = 48)

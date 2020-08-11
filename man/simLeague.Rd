@@ -2,37 +2,45 @@
 % Please edit documentation in R/simLeague.r
 \name{simLeague}
 \alias{simLeague}
-\title{Simulation of a league with fixed lineups}
+\title{Simulation of a league}
 \usage{
 simLeague(lineups, reps = 1000, ncores = 8, method = "sample", repsGame = 1)
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups.
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{reps}{integer(1), number of replications of a league (if method="sample")}
+\item{reps}{[\code{integer(1)}]\cr
+number of replications of a league (if \code{method="sample"})}
 
-\item{ncores}{integer(1), number of processor cores for parallelization}
+\item{ncores}{[\code{integer(1)}]\cr
+number of processor cores for parallelization}
 
-\item{method}{character(1), either "expected" or "sample" (default)
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{repsGame}{integer(1), number of repetitions of each game (if method="sample").
+\item{repsGame}{[\code{integer(1)}]\cr
+number of repetitions of each game (if \code{method="sample"}).
 Default is 1 (i.e. no repetitions)}
 }
 \value{
-list of class "simResult" with:
-  * results: data.table with the results of every game
-  * summary: data.table with points won by the teams
-  * lineups: the lineups input parameter matrix
+list of S3 class \code{"simResult"} with:
+\describe{
+  \item{\code{results}}{  [\code{data.table}]\cr results of every game }
+  \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
+  \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
+}
 }
 \description{
-Simulation of a league with fixed lineups
+Simulation of a league
 }
 \examples{
 lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
 rownames(lineups) <- c("Nob", "FdS", "USV", "Marco")
+lineups
 
 set.seed(2020)
 (res <- simLeague(lineups, reps = 100))
@@ -48,4 +56,7 @@ str(res)
 res$results        # score not necessarily integer-valued for method="expected".
 str(res)           # only 1 leagueID, i.e. one run. No sampling of results.
 
+}
+\seealso{
+\code{\link{league}}, \code{\link{simAmateurs}}
 }

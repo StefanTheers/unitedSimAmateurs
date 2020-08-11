@@ -7,30 +7,35 @@
 simTournament(lineups, reps = 100, method = "sample", repsGame = 1)
 }
 \arguments{
-\item{lineups}{(N x 5)-dim. matrix of lineups where N=2,4,8,16, ...
+\item{lineups}{[\code{matrix}]\cr
+(\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...
 Column names are t,a,v,m,s.
 Row names are the teams.}
 
-\item{reps}{integer(1), number of replications of single tournament}
+\item{reps}{[\code{integer(1)}]\cr
+number of replications of the single tournament}
 
-\item{method}{character(1), either "expected" or "sample" (default)
-More details in game().}
+\item{method}{[\code{character(1)}]\cr
+either \code{"expected"} or \code{"sample"} (default).
+More details in \code{\link{game}}.}
 
-\item{repsGame}{integer(1), number of repetitions of each game (if method="sample").
-Default is 1 (i.e. no repetitions). repsGame > 1 is NOT recommended for tournaments.}
+\item{repsGame}{[\code{integer(1)}]\cr
+number of repetitions of each game (if \code{method="sample"}).
+Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.}
 }
 \value{
-list of class "simResult" with:
-  * results: data.table with the results of every game
-  * summary: data.table with points won by the teams
-  * lineups: the lineups input parameter matrix
-  * resultsTournament: list of created tournament objects
+list of S3 class \code{"simResult"} with:
+\describe{
+  \item{\code{results}}{  [\code{data.table}]\cr results of every game }
+  \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
+  \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
+  \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects }
+}
 }
 \description{
 Simulation of a tournament with fixed lineups
 }
 \examples{
-# define some lineups:
 lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
 rownames(lineups) <- c("Nob", "FdS", "USV", "Marco")
 lineups
@@ -45,4 +50,7 @@ str(head(res$resultsTournament, 2))
 
 (res <- simTournament(lineups, method = "expected"))  # no sampling of results
 
+}
+\seealso{
+\code{\link{tournament}}, \code{\link{simTournamentPerm}}, \code{\link{simAmateurs}}
 }
