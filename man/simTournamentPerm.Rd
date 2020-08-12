@@ -2,7 +2,7 @@
 % Please edit documentation in R/simTournamentPerm.r
 \name{simTournamentPerm}
 \alias{simTournamentPerm}
-\title{Simulation of a tournament without fixed lineups}
+\title{Simulation of a tournament without a fixed \code{lineups} matrix}
 \usage{
 simTournamentPerm(
   lineups,
@@ -21,7 +21,7 @@ Column names are t,a,v,m,s.
 Row names are the teams.}
 
 \item{reps}{[\code{integer(1)}]\cr
-number of replications of the single tournament}
+number of replications of the single tournament as in \code{\link{simTournament}}}
 
 \item{ncores}{[\code{integer(1)}]\cr
 number of processor cores for parallelization}
@@ -52,8 +52,21 @@ list of S3 class \code{"simResult"} with:
 }
 }
 \description{
-Simulation of a tournament without fixed lineups, i.e. allowing for
-permutations of the lineup matrix.
+This function does the same job as \code{\link{simTournament}}. But it adds one
+component and that is correcting for row permutations in the \code{lineups} matrix.
+When evaluating the performance of a team, it makes a possibly huge difference when
+this team plays against which opponent (cf. help page of \code{\link{tournament}}).
+\cr\cr
+As an example, consider team A to be the
+second-best team in the competition. But they are unlucky and play against the
+best team B in stage 1. In the simulation of \code{\link{simTournament}} with a
+\code{lineups} matrix with A,B as the first two rows, A would (nearly) always fail
+to get past the first stage of the tournament
+(always if method="expected", not recommended).
+\cr\cr
+To correct this possible source of unfairness, \code{simTournamentPerm} uses
+row permutations (\code{\link{drawPerm}}) of the \code{lineups} matrix --
+either all of them or a sample.
 }
 \note{
 Note that (A:B, C:D) and (D:C, B:A) etc. are the same tournament!

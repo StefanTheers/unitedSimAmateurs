@@ -1,4 +1,9 @@
-#' Simulation of a tournament with fixed lineups
+#' Simulation of a tournament with a fixed \code{lineups} matrix
+#'
+#' If \code{method="sample"}, the better team does not necessarily win
+#' every game of a stage of a tournament. That is why \code{simTournament}
+#' calls \code{\link{tournament}} \code{reps}-times and returns
+#' an easy-to-read summary.
 #'
 #' @param lineups [\code{matrix}]\cr
 #'   (\code{N} x 5)-dim. matrix of lineups where \code{N}=2,4,8,16, ...

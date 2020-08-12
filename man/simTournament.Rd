@@ -2,7 +2,7 @@
 % Please edit documentation in R/simTournament.r
 \name{simTournament}
 \alias{simTournament}
-\title{Simulation of a tournament with fixed lineups}
+\title{Simulation of a tournament with a fixed \code{lineups} matrix}
 \usage{
 simTournament(lineups, reps = 100, method = "sample", repsGame = 1)
 }
@@ -33,7 +33,10 @@ list of S3 class \code{"simResult"} with:
 }
 }
 \description{
-Simulation of a tournament with fixed lineups
+If \code{method="sample"}, the better team does not necessarily win
+every game of a stage of a tournament. That is why \code{simTournament}
+calls \code{\link{tournament}} \code{reps}-times and returns
+an easy-to-read summary.
 }
 \examples{
 lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
