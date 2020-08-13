@@ -36,12 +36,17 @@
 #' @param repsGame [\code{integer(1)}]\cr
 #'   number of repetitions of each game (if \code{method="sample"}).
 #'   Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.
+#' @param returnResultsAsList [\code{logical(1)}]\cr
+#'   Return all \code{\link{tournament}} objects put together in one list?
+#'   Note that \code{returnResultsAsList=TRUE} is memory intensive.
+#'   If you set \code{returnResultsAsList=FALSE}, no information is lost as the \code{data.table}
+#'   in the \code{results} return contains the same info as a table.
 #' @return list of S3 class \code{"simResult"} with:
 #' \describe{
 #'   \item{\code{results}}{  [\code{data.table}]\cr results of every game }
 #'   \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
 #'   \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
-#'   \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects }
+#'   \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects or \code{NULL} (if \code{returnResultsAsList=FALSE}) }
 #' }
 #' @note Note that (A:B, C:D) and (D:C, B:A) etc. are the same tournament!
 #' @seealso \code{\link{tournament}}, \code{\link{simTournament}}, \code{\link{simAmateurs}}, \code{\link{drawPerm}}
@@ -133,7 +138,8 @@
 #' nrow(res$results)                           # = 3 * 5 * 1500 games
 #'
 #'
-simTournamentPerm <- function(lineups, reps = 100, ncores = 8, sample = TRUE, sample.size = 100, method = "sample", repsGame = 1) {
+simTournamentPerm <- function(lineups, reps = 100, ncores = 8, sample = TRUE, sample.size = 100,
+                              method = "sample", repsGame = 1, returnResultsAsList = FALSE) {
   checkmate::assertCharacter(method, pattern = "(expected)|(sample)")
 
   # permutation of lineups:
@@ -145,13 +151,15 @@ simTournamentPerm <- function(lineups, reps = 100, ncores = 8, sample = TRUE, sa
   # result list: 1 entry for 1 tournament (and its reps replications):
   cl <- makeCluster(rep("localhost", ncores), type = "SOCK")
   clusterSetRNGStream(cl)
-  clusterExport(cl, list("perms", "simTournament", "reps", "lineups", "method", "repsGame",
+  clusterExport(cl, list("perms", "simTournament", "reps", "lineups",
+                         "method", "repsGame", "returnResultsAsList",
                          "tournament", "game", "points.tournament",
                          "as.data.table.tournament", "data.table", ":=",
                          "as.data.table", "expGoals"),
                 envir = environment())
   res <- parLapply(cl, perms, function(ind) {
-    simTournament(lineups = lineups[ind, ], reps = reps, method = method, repsGame = repsGame)
+    simTournament(lineups = lineups[ind, ], reps = reps, method = method, repsGame = repsGame,
+                  returnResultsAsList = returnResultsAsList)
   })
   stopCluster(cl)
 
@@ -162,7 +170,11 @@ simTournamentPerm <- function(lineups, reps = 100, ncores = 8, sample = TRUE, sa
   resResults <- do.call(rbind, X)
 
   # full results with tournament objects:
-  resResultsTournament <- lapply(res, "[[", "resultsTournament")
+  if(returnResultsAsList) {
+    resResultsTournament <- lapply(res, "[[", "resultsTournament")
+  } else {
+    resResultsTournament <- NULL
+  }
 
   # summary/ points:
   X <- lapply(res, "[[", "summary")

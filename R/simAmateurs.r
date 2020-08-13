@@ -79,7 +79,8 @@ simAmateurs <- function(lineups, reps = c(tournament = 100, league = 100, game =
     cat("Simulation tournament ...\n")
     resTournament <- simTournamentPerm(
         lineups = lineups, reps = reps["tournament"],
-        ncores = ncores, sample = sample, sample.size = sample.size, method = method)
+        ncores = ncores, sample = sample, sample.size = sample.size, method = method,
+        returnResultsAsList = FALSE)
     gc()
     cat("DONE\n\n")
   } else {

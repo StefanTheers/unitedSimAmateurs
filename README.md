@@ -25,7 +25,8 @@ game(x1, x2)
 game(x1, x2)
 ## x1 vs. x2:      0:0 n.V. (2:5 i.E.)
 ```
-The first game is won by team 1, the second game needs a penalty shoot-out.
+The first game is won by team 1.
+To determine the winner in the second game, we need a penalty shoot-out.
 
 
 ## One Tournament
@@ -68,7 +69,7 @@ Warwick wins!
 Let's play this tournament more often:
 ```R
 set.seed(2020)
-simTournament(lineups, reps = 100)
+(res <- simTournament(lineups, reps = 100))
 ##        team pointsAvg wonNumber wonProp t a v m s
 ## 1:  Warwick      1.38        57    0.57 4 0 8 5 5
 ## 2: Dortmund      0.70        33    0.33 4 0 5 8 5

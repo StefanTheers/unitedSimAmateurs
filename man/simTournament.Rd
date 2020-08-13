@@ -4,7 +4,13 @@
 \alias{simTournament}
 \title{Simulation of a tournament with a fixed \code{lineups} matrix}
 \usage{
-simTournament(lineups, reps = 100, method = "sample", repsGame = 1)
+simTournament(
+  lineups,
+  reps = 100,
+  method = "sample",
+  repsGame = 1,
+  returnResultsAsList = FALSE
+)
 }
 \arguments{
 \item{lineups}{[\code{matrix}]\cr
@@ -22,6 +28,12 @@ More details in \code{\link{game}}.}
 \item{repsGame}{[\code{integer(1)}]\cr
 number of repetitions of each game (if \code{method="sample"}).
 Default is 1 (i.e. no repetitions). \code{repsGame} > 1 is NOT recommended for tournaments.}
+
+\item{returnResultsAsList}{[\code{logical(1)}]\cr
+Return all \code{\link{tournament}} objects put together in one list?
+Note that \code{returnResultsAsList=TRUE} is memory intensive.
+If you set \code{returnResultsAsList=FALSE}, no information is lost as the \code{data.table}
+in the \code{results} return contains the same info as a table.}
 }
 \value{
 list of S3 class \code{"simResult"} with:
@@ -29,7 +41,7 @@ list of S3 class \code{"simResult"} with:
   \item{\code{results}}{  [\code{data.table}]\cr results of every game }
   \item{\code{summary}}{  [\code{data.table}]\cr points won by the teams }
   \item{\code{lineups}}{  [\code{matrix}]\cr the \code{lineups} input parameter matrix }
-  \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects }
+  \item{\code{resultsTournament}}{  [\code{list}]\cr all created \code{\link{tournament}} objects or \code{NULL} (if \code{returnResultsAsList=FALSE}) }
 }
 }
 \description{
@@ -44,14 +56,14 @@ rownames(lineups) <- c("Nob", "FdS", "USV", "Marco")
 lineups
 
 set.seed(2020)
-(res <- simTournament(lineups, reps = 100))
+(res <- simTournament(lineups, reps = 100, returnResultsAsList = TRUE))
 res$results                # 300 = reps * (3 games per tournament with 4 teams) games alltogether
 res$resultsTournament[[1]] # the 1st of reps tournaments
 names(res)
 str(res[1:3])
 str(head(res$resultsTournament, 2))
 
-(res <- simTournament(lineups, method = "expected"))  # no sampling of results
+(res <- simTournament(lineups, method = "expected", returnResultsAsList = TRUE))  # no sampling of results
 
 }
 \seealso{
