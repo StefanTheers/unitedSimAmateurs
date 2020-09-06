@@ -16,7 +16,87 @@
 #' @export
 #'
 #' @examples
-#' 5
+#' # define some lineups:
+#' lineups <- cbind(t = c(4,0,0,4), a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5))
+#' rownames(lineups) <- c("Nob", "FdS", "USV", "Marco")
+#' lineups
+#' lineups2 <- cbind(t = c(4,0,0,4) + 6, a = c(0,4,4,0), v = c(5,5,8,8), m = c(8,5,5,5), s = c(5,8,5,5) + 1)
+#' rownames(lineups2) <- c("Nob", "FdS", "USV", "Marco")
+#' lineups2
+#'
+#'
+#' # run the simulation:
+#' set.seed(2020)
+#' (res1 <- simAmateurs(lineups, reps = c(tournament = 5, league = 20, game = 1), ncores = 8, sample = TRUE,  sample.size = 100, method = "sample"))
+#' (res2 <- simAmateurs(lineups2, reps = c(tournament = 5, league = 20, game = 1), ncores = 8, sample = TRUE,  sample.size = 100, method = "sample"))
+#'
+#' # define the true ("official") tournament results:
+#' (truth1 <- data.table(team = rownames(lineups),  points = c(0,0,1,2))) # Marco winner, USV 2nd finalist
+#' (truth2 <- data.table(team = rownames(lineups2), points = c(0,0,2,1))) # vice versa
+#'
+#' # analyse the simulation result:
+#' (ana1 <- analysis(res1, truth1))
+#' (ana2 <- analysis(res2, truth2))
+#' # Let's look at ana2:
+#' #
+#' # $summary contains the following team-based columns:
+#' # * bfb is the true result from the truth input.
+#' #   Note: DFB is the German Football Association (Deutscher Fussball Bund),
+#' #         BFB is its limited United counterpart (Beschraenkter Fussball Bund).
+#' # * pointsAvg: The most important column that contains the simulation results:
+#' #   The average number of points per tournament.
+#' # * wonNumber: The number of tournaments won by each team.
+#' # * wonProp: The proportion of tournaments won by each team.
+#' # * pointsAvgRank: The ranking based on pointsAvg.
+#' # * wonPropRank: The ranking based on wonProp.
+#' # * 0,1,2, ...: The discrete distribution of points won per tournament for each team.
+#' # * worse:  0.00  means that FdS have never had less points in the simulation in comparison to the official bfb result.
+#' # * same:   0.502 means that FdS have had the same number of points in 50.2% of all simulated tournaments as in the
+#' #           official bfb result.
+#' # * better: 0.498 means that FdS have been better in 49.8% of all simulated tournaments than in the official bfb result.
+#' # * leaguePointsAvg: The average number of league points.
+#' # * leagueWonNumber: The number of leagues won by each team.
+#' # * leagueWonProp: The proportion of leagues won by each team.
+#' # * leaguePointsAvgRank: The ranking based on leaguePointsAvg.
+#' # * leagueWonPropRank: The ranking based on leagueWonProp.
+#' # * tournamentLeagueRankDiff: pointsAvgRank - leaguePointsAvgRank
+#' # * leaguePointsMin: The minimum (i.e. worst) number of points per league.
+#' # * leaguePointsMax: The maximum (i.e. best)  number of points per league.
+#' # * leagueRankWorst: The worst league position that occured for each team.
+#' # * leagueRankBest:  The best  league position that occured for each team.
+#' #
+#' # $notTeamBased contains a vector with min and max values of interest of the same, better and worse columns
+#' # and a matrix of Spearman rank correlations.
+#' #
+#' # What do we actually see?
+#' # * An official tournament winner USV is pretty unfair: USV have performed worse in 94% of all simulated tournaments
+#' #   and have never won a league. In fact, it is clearly visible in the pointsAvg and leaguePointsAvg columns
+#' #   that USV is by far the worst team in both simulated competitions (tournament and league).
+#' # * This unfairness is also displayed in the correlation matrix (cf. bfb results).
+#' # * Nob is the simulated tournament and FdS the simulated league winner.
+#'
+#' # plot of the discrete distribution of the simulated tournament performance of each team:
+#' plot(ana1, type = "distrib", main = "p=26 WP")
+#' plot(ana2, type = "distrib", main = "p=39 WP")
+#' # Let's look at ana1:
+#' # * FdS and USV usually come in last (0 points).
+#' # * Marco has a very even distribution with similar probability mass on 0,1 and 2 points.
+#' # * Nob wins more than 50% of the simulated tournaments (2 points = the max number of points per tournament).
+#'
+#' # scatter plot with a comparison of the true result and the tournament simulation results:
+#' plot(ana1, type = "scatter", main = "p=26 WP")
+#' plot(ana2, type = "scatter", main = "p=39 WP")
+#' # Let's look at ana1:
+#' # * FdS and especially Nob are above of the bisecting line, i.e. they were unlucky in the official
+#' #   BFB tournament (better performance in the simulation).
+#' # * On the other hand, USV and Marco were lucky and performed better in the official tournament
+#' #   than expected.
+#'
+#' # It is possible to analyse two or more simulation results:
+#' (anaMerge <- mergeAnalysis(x = list(ana1, ana2)))
+#' plot(anaMerge, type = "distrib", main = "merged results for p=81,71,75 WP")
+#' plot(anaMerge, type = "scatter", main = "merged results for p=81,71,75 WP")
+#' # (No bisecting line as the bfb points are added!)
 #'
 analysis <- function(x, truth) {
 
