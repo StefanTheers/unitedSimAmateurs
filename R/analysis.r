@@ -19,9 +19,9 @@
 #'     \item{\code{pointsAvgRank}}{The ranking based on \code{pointsAvg}.}
 #'     \item{\code{wonPropRank}}{The ranking based on \code{wonProp}.}
 #'     \item{\code{0,1,2, ...}}{The discrete distribution of points won per tournament for each team.}
-#'     \item{\code{worse}}{0.00  means that FdS have never had less points in the simulation in comparison to the official \code{bfb} result.}
-#'     \item{\code{same}}{0.502 means that FdS have had the same number of points in 50.2\% of all simulated tournaments as in the official \code{bfb} result.}
-#'     \item{\code{better}}{0.498 means that FdS have been better in 49.8\% of all simulated tournaments than in the official \code{bfb} result.}
+#'     \item{\code{worse}}{0.00  means that a team has never had less points in the simulation in comparison to the official \code{bfb} result.}
+#'     \item{\code{same}}{0.502 means that a team has had the same number of points in 50.2\% of all simulated tournaments as in the official \code{bfb} result.}
+#'     \item{\code{better}}{0.498 means that a team has been better in 49.8\% of all simulated tournaments than in the official \code{bfb} result.}
 #'     \item{\code{leaguePointsAvg}}{The average number of league points.}
 #'     \item{\code{leagueWonNumber}}{The number of leagues won by each team.}
 #'     \item{\code{leagueWonProp}}{The proportion of leagues won by each team.}
