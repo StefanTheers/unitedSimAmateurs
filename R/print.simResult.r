@@ -14,9 +14,10 @@
 #' @export
 #'
 print.simResult <- function(x, printNum = TRUE) {
+  pointsAvgVar <- colnames(x$summary)[grep("^((pointsAvg)|(leaguePointsAvg))$", colnames(x$summary))]
   if(!any(names(x) == "lineups")) {
     # Note: Lineups may have to be kept secret. Thus, it should be allowed to delete them.
-    X <- x$summary[order(pointsAvg, decreasing = TRUE)]
+    X <- x$summary[order(X[, ..pointsAvgVar], decreasing = TRUE)]
     X$lineup <- NA
     print(X)
     return(invisible(X))
@@ -25,7 +26,7 @@ print.simResult <- function(x, printNum = TRUE) {
   X <- as.data.table(x$lineups)
   X$team <- teamVec
   X <- merge(x$summary, X, by = "team")
-  X <- X[order(pointsAvg, decreasing = TRUE)]
+  X <- X[order(X[, ..pointsAvgVar], decreasing = TRUE)]
   print(X)
   if(printNum) {
     cat("\nnumber of teams:\t\t\t",                      a1 <- length(unique(do.call(c, x$results[, team1:team2]))))

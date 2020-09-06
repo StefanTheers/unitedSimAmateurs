@@ -26,5 +26,15 @@ each involving 64 teams.
 data(bfb)
 bfb
 
+# plot the tournament results:
+X <- as.matrix(bfb[, pr1:pr3])
+rownames(X) <- bfb[, Verein]
+colnames(X) <- paste("Turnier", 1:3)
+library("plot.matrix")
+op <- par(mar = c(5,12,4,2) + 0.1)
+plot(X, las = 1, cex.axis = 0.85, fmt.cell='\%.0f', cex = 0.85,  key = NULL,
+  ylab = "", xlab = "", main = "Official BFB amateur tournament results of Season 45")
+par(op)
+
 }
 \keyword{datasets}

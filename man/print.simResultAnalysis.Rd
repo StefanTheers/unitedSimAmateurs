@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.r
 \name{print.simResultAnalysis}
 \alias{print.simResultAnalysis}
-\title{\code{print} method for \code{"simResultAnalysis"} objects}
+\title{\code{print} method for \code{simResultAnalysis} objects}
 \usage{
 \method{print}{simResultAnalysis}(x, ...)
 }

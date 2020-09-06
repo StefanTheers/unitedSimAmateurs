@@ -332,7 +332,7 @@ mergeAnalysis <- function(x) {
 
 
 
-#' \code{print} method for \code{"simResultAnalysis"} objects
+#' \code{print} method for \code{simResultAnalysis} objects
 #'
 #' This print method basically just calls \code{\link[base]{print.default}}
 #' but omits to print the \code{x} attribute (the input of class \code{"simResult"}).
