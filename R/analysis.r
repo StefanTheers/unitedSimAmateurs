@@ -7,7 +7,37 @@
 #' @param truth [\code{data.frame}]\cr
 #'   with true results with two columns \code{team}
 #'   and \code{tournamentRoundResult} (points won in the tournament, 1 point per game that was won)
-#' @return \code{list} with results of class \code{simResultAnalysis}
+#'
+#' @return
+#'   \code{list} with results of class \code{"simResultAnalysis"}
+#'   with a \code{data.table} \code{$summary} that contains the following team-based columns:
+#'   \describe{
+#'     \item{\code{bfb}}{\code{bfb} is the true result from the \code{truth} input}
+#'     \item{\code{pointsAvg}}{The most important column that contains the simulation results: The average number of points per tournament.}
+#'     \item{\code{wonNumber}}{The number of tournaments won by each team.}
+#'     \item{\code{wonProp}}{The proportion of tournaments won by each team.}
+#'     \item{\code{pointsAvgRank}}{The ranking based on \code{pointsAvg}.}
+#'     \item{\code{wonPropRank}}{The ranking based on \code{wonProp}.}
+#'     \item{\code{0,1,2, ...}}{The discrete distribution of points won per tournament for each team.}
+#'     \item{\code{worse}}{0.00  means that FdS have never had less points in the simulation in comparison to the official \code{bfb} result.}
+#'     \item{\code{same}}{0.502 means that FdS have had the same number of points in 50.2\% of all simulated tournaments as in the official \code{bfb} result.}
+#'     \item{\code{better}}{0.498 means that FdS have been better in 49.8\% of all simulated tournaments than in the official \code{bfb} result.}
+#'     \item{\code{leaguePointsAvg}}{The average number of league points.}
+#'     \item{\code{leagueWonNumber}}{The number of leagues won by each team.}
+#'     \item{\code{leagueWonProp}}{The proportion of leagues won by each team.}
+#'     \item{\code{leaguePointsAvgRank}}{The ranking based on \code{leaguePointsAvg}.}
+#'     \item{\code{leagueWonPropRank}}{The ranking based on \code{leagueWonProp}.}
+#'     \item{\code{tournamentLeagueRankDiff}}{\code{= pointsAvgRank - leaguePointsAvgRank}}
+#'     \item{\code{leaguePointsMin}}{The minimum (i.e. worst) number of points per league.}
+#'     \item{\code{leaguePointsMax}}{The maximum (i.e. best)  number of points per league.}
+#'     \item{\code{leagueRankWorst}}{The worst league position that occured for each team.}
+#'     \item{\code{leagueRankBest}}{The best  league position that occured for each team.}
+#'   }
+#'   \code{$notTeamBased} contains a vector with min and max values of interest of the \code{same},
+#'   \code{better} and \code{worse} columns and a matrix of Spearman rank correlations.
+#' @note
+#'   DFB is the German Football Association (Deutscher Fussball Bund),
+#'   BFB is its limited United counterpart (Beschraenkter Fussball Bund).
 #' @seealso Call \code{\link{simAmateurs}} to create an object of class \code{"simResult"}.
 #' Use \code{\link{plot.simResultAnalysis}} for a visualization of the analysis result and
 #' \code{\link{mergeAnalysis}} to merge two or more analysis results.
@@ -24,7 +54,6 @@
 #' rownames(lineups2) <- c("Nob", "FdS", "USV", "Marco")
 #' lineups2
 #'
-#'
 #' # run the simulation:
 #' set.seed(2020)
 #' (res1 <- simAmateurs(lineups, reps = c(tournament = 5, league = 20, game = 1), ncores = 8, sample = TRUE,  sample.size = 100, method = "sample"))
@@ -38,37 +67,6 @@
 #' (ana1 <- analysis(res1, truth1))
 #' (ana2 <- analysis(res2, truth2))
 #' # Let's look at ana2:
-#' #
-#' # $summary contains the following team-based columns:
-#' # * bfb is the true result from the truth input.
-#' #   Note: DFB is the German Football Association (Deutscher Fussball Bund),
-#' #         BFB is its limited United counterpart (Beschraenkter Fussball Bund).
-#' # * pointsAvg: The most important column that contains the simulation results:
-#' #   The average number of points per tournament.
-#' # * wonNumber: The number of tournaments won by each team.
-#' # * wonProp: The proportion of tournaments won by each team.
-#' # * pointsAvgRank: The ranking based on pointsAvg.
-#' # * wonPropRank: The ranking based on wonProp.
-#' # * 0,1,2, ...: The discrete distribution of points won per tournament for each team.
-#' # * worse:  0.00  means that FdS have never had less points in the simulation in comparison to the official bfb result.
-#' # * same:   0.502 means that FdS have had the same number of points in 50.2% of all simulated tournaments as in the
-#' #           official bfb result.
-#' # * better: 0.498 means that FdS have been better in 49.8% of all simulated tournaments than in the official bfb result.
-#' # * leaguePointsAvg: The average number of league points.
-#' # * leagueWonNumber: The number of leagues won by each team.
-#' # * leagueWonProp: The proportion of leagues won by each team.
-#' # * leaguePointsAvgRank: The ranking based on leaguePointsAvg.
-#' # * leagueWonPropRank: The ranking based on leagueWonProp.
-#' # * tournamentLeagueRankDiff: pointsAvgRank - leaguePointsAvgRank
-#' # * leaguePointsMin: The minimum (i.e. worst) number of points per league.
-#' # * leaguePointsMax: The maximum (i.e. best)  number of points per league.
-#' # * leagueRankWorst: The worst league position that occured for each team.
-#' # * leagueRankBest:  The best  league position that occured for each team.
-#' #
-#' # $notTeamBased contains a vector with min and max values of interest of the same, better and worse columns
-#' # and a matrix of Spearman rank correlations.
-#' #
-#' # What do we actually see?
 #' # * An official tournament winner USV is pretty unfair: USV have performed worse in 94% of all simulated tournaments
 #' #   and have never won a league. In fact, it is clearly visible in the pointsAvg and leaguePointsAvg columns
 #' #   that USV is by far the worst team in both simulated competitions (tournament and league).
@@ -94,8 +92,8 @@
 #'
 #' # It is possible to analyse two or more simulation results:
 #' (anaMerge <- mergeAnalysis(x = list(ana1, ana2)))
-#' plot(anaMerge, type = "distrib", main = "merged results for p=81,71,75 WP")
-#' plot(anaMerge, type = "scatter", main = "merged results for p=81,71,75 WP")
+#' plot(anaMerge, type = "distrib", main = "merged results for p=26,39 WP")
+#' plot(anaMerge, type = "scatter", main = "merged results for p=26,39 WP")
 #' # (No bisecting line as the bfb points are added!)
 #'
 analysis <- function(x, truth) {

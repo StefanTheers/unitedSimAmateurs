@@ -92,4 +92,5 @@ res64     ##save(res64, file = "res64.rdata")
 \seealso{
 \code{simAmateurs} calls \code{\link{simTournamentPerm}} and \code{\link{simLeague}}
   one after another.
+  \code{\link{analysis}} can be used to analyse the simulation results.
 }
