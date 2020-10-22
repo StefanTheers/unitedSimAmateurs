@@ -15,7 +15,7 @@ i.e. a maximum of 3 * 6 = 18 points can be won by a single team if it wins all t
 This has not happened though.
 }
 \usage{
-data(grav)
+data(bfb)
 }
 \description{
 A \code{\link[data.table]{data.table}} with the official BFB results of the three

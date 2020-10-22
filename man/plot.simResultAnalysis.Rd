@@ -17,7 +17,7 @@ tournament performance of each team or
 and the tournament simulation results}
 
 \item{highlight}{[\code{character(m)}]\cr
-vector of team names that should be highlighted in a \code{type="distrib"} plot.
+vector of \code{m} team names that should be highlighted in a \code{type="distrib"} plot.
 Default is \code{NULL}. \code{NULL} means that no team is highlighted and
 rainbow colours are used.}
 

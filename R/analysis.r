@@ -208,7 +208,7 @@ analysis <- function(x, truth) {
 #'   \code{type="scatter"} for a scatter plot with a comparison of the true result
 #'   and the tournament simulation results
 #' @param highlight [\code{character(m)}]\cr
-#'   vector of team names that should be highlighted in a \code{type="distrib"} plot.
+#'   vector of \code{m} team names that should be highlighted in a \code{type="distrib"} plot.
 #'   Default is \code{NULL}. \code{NULL} means that no team is highlighted and
 #'   rainbow colours are used.
 #' @param ... further arguments that are passed to the \code{plot} functions
