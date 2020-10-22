@@ -47,7 +47,7 @@ Analyse a simulation result returned by \code{\link{simAmateurs}}.
 }
 \note{
 DFB is the German Football Association (Deutscher Fussball Bund),
-  BFB is its limited United counterpart (Beschraenkter Fussball Bund).
+  BFB is its fictional limited United counterpart (Beschraenkter Fussball Bund).
 }
 \examples{
 # define some lineups:

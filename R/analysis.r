@@ -37,7 +37,7 @@
 #'   \code{better} and \code{worse} columns and a matrix of Spearman rank correlations.
 #' @note
 #'   DFB is the German Football Association (Deutscher Fussball Bund),
-#'   BFB is its limited United counterpart (Beschraenkter Fussball Bund).
+#'   BFB is its fictional limited United counterpart (Beschraenkter Fussball Bund).
 #' @seealso Call \code{\link{simAmateurs}} to create an object of class \code{"simResult"}.
 #' Use \code{\link{plot.simResultAnalysis}} for a visualization of the analysis result and
 #' \code{\link{mergeAnalysis}} to merge two or more analysis results.
@@ -207,12 +207,16 @@ analysis <- function(x, truth) {
 #'   tournament performance of each team or
 #'   \code{type="scatter"} for a scatter plot with a comparison of the true result
 #'   and the tournament simulation results
+#' @param highlight [\code{character(m)}]\cr
+#'   vector of team names that should be highlighted in a \code{type="distrib"} plot.
+#'   Default is \code{NULL}. \code{NULL} means that no team is highlighted and
+#'   rainbow colours are used.
 #' @param ... further arguments that are passed to the \code{plot} functions
 #' @return \code{invisible(NULL)}
 #' @seealso \code{\link{analysis}}
 #' @export
 #'
-plot.simResultAnalysis <- function(x, type = "distrib", ...) {
+plot.simResultAnalysis <- function(x, type = "distrib", highlight = NULL, ...) {
   X <- x$summary
   if(type == "distrib") {
     # plot of the discrete distributions of each team from Xdistrib:
@@ -223,11 +227,30 @@ plot.simResultAnalysis <- function(x, type = "distrib", ...) {
     plot(0:1, type = "n", xlim = c(0, ncol(dat)), ylim = c(0, max(dat[, ind[-1]])),
       xlab = "points in 1 tournament", ylab = "relative frequency", ...)
     grid()
-    mycols <- rainbow(nrow(dat))
+    if(!is.null(highlight)) {
+      # highlight the teams mentioned in the highlight input:
+      mycols <- rep("lightgray", nrow(dat))
+      mylwd  <- rep(1, nrow(dat))
+      if(!all(highlight %in% rownames(dat)))
+        stop("All entries of highlight must be valid team names!")
+      mycols[rownames(dat) %in% highlight] <- rainbow(length(highlight))
+      mylwd[ rownames(dat) %in% highlight] <- 2
+    } else {
+      # use rainbow colours for all teams:
+      mycols <- rainbow(nrow(dat))
+      mylwd  <- 1
+    }
     for(i in 1:nrow(dat)) {
-      lines(x = 0:(ncol(dat) - 1), y = dat[i, ], type = "b", col = mycols[i], pch = 20)
+      lines(x = 0:(ncol(dat) - 1), y = dat[i, ], type = "b", col = mycols[i], pch = 20, lwd = mylwd[i])
       text(x = ncol(dat) - 1, y = rev(dat[i, ])[1], labels = rownames(dat)[i],
         col = mycols[i], cex = 0.85, pos = 4)
+    }
+    if(!is.null(highlight)) {
+      for(i in which(mycols != "lightgray")) {
+        lines(x = 0:(ncol(dat) - 1), y = dat[i, ], type = "b", col = mycols[i], pch = 20, lwd = mylwd[i])
+        text(x = ncol(dat) - 1, y = rev(dat[i, ])[1], labels = rownames(dat)[i],
+          col = mycols[i], cex = 0.85, pos = 4)
+      }
     }
   }
   if(type == "scatter") {

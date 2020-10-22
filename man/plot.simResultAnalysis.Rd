@@ -4,7 +4,7 @@
 \alias{plot.simResultAnalysis}
 \title{Visualize the analysis results of a simulation}
 \usage{
-\method{plot}{simResultAnalysis}(x, type = "distrib", ...)
+\method{plot}{simResultAnalysis}(x, type = "distrib", highlight = NULL, ...)
 }
 \arguments{
 \item{x}{object of class \code{simResultAnalysis}}
@@ -15,6 +15,11 @@ plot type with
 tournament performance of each team or
 \code{type="scatter"} for a scatter plot with a comparison of the true result
 and the tournament simulation results}
+
+\item{highlight}{[\code{character(m)}]\cr
+vector of team names that should be highlighted in a \code{type="distrib"} plot.
+Default is \code{NULL}. \code{NULL} means that no team is highlighted and
+rainbow colours are used.}
 
 \item{...}{further arguments that are passed to the \code{plot} functions}
 }

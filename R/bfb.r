@@ -4,7 +4,7 @@
 #' amateur tournaments played in Season 45 with p = 81, 71 and 75 WP (value points)
 #' each involving 64 teams.
 #' @docType data
-#' @usage data(grav)
+#' @usage data(bfb)
 #' @format
 #' \code{Verein} contains the team names,
 #' \code{Platz} the official position.
