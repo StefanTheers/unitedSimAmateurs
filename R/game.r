@@ -151,8 +151,8 @@ game <- function(x1, x2, etps = TRUE, method = "sample") {
         x1_PS_goals <- rbinom(1, size = 5, prob = 1 - x2["t"] / 20)
         x2_PS_goals <- rbinom(1, size = 5, prob = 1 - x1["t"] / 20)
         while(x1_PS_goals == x2_PS_goals) {
-          x1_PS_goals <- rbinom(1, size = 1, prob = 1 - x2["t"] / 20)
-          x2_PS_goals <- rbinom(1, size = 1, prob = 1 - x1["t"] / 20)
+          x1_PS_goals <- x1_PS_goals + rbinom(1, size = 1, prob = 1 - x2["t"] / 20)
+          x2_PS_goals <- x2_PS_goals + rbinom(1, size = 1, prob = 1 - x1["t"] / 20)
         }
         attr(retVal, "penalties") <- c(x1_PS_goals, x2_PS_goals)
         retVal[1:2] <- retVal[1:2] + attr(retVal, "penalties")
