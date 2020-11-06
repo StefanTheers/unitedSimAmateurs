@@ -123,14 +123,14 @@ game <- function(x1, x2, etps = TRUE, method = "sample") {
   ##### sample a game:
   if(method == "sample") {
     # full time:
-    x1_chances <- (  max(0, round(x1["s"] - (x2["v"] + x2["a"])))
-                   + max(0, round(1/2 * (x1["m"] - x2["m"])))
-                   + max(0, round(1/4 * (x1["v"] - x2["s"]))))
+    x1_chances <- (  max(0, round2(x1["s"] - (x2["v"] + x2["a"])))
+                   + max(0, round2(1/2 * (x1["m"] - x2["m"])))
+                   + max(0, round2(1/4 * (x1["v"] - x2["s"]))))
     x1_efficiency <- (15 - x2["a"]) / 15 * (14 - x2["t"]) / 14
     x1_goals <- rbinom(1, size = x1_chances, prob = x1_efficiency)
-    x2_chances <- (  max(0, round(x2["s"] - (x1["v"] + x1["a"])))
-                   + max(0, round(1/2 * (x2["m"] - x1["m"])))
-                   + max(0, round(1/4 * (x2["v"] - x1["s"]))))
+    x2_chances <- (  max(0, round2(x2["s"] - (x1["v"] + x1["a"])))
+                   + max(0, round2(1/2 * (x2["m"] - x1["m"])))
+                   + max(0, round2(1/4 * (x2["v"] - x1["s"]))))
     x2_efficiency <- (15 - x1["a"]) / 15 * (14 - x1["t"]) / 14
     x2_goals <- rbinom(1, size = x2_chances, prob = x2_efficiency)
     attr(retVal, "fullTimeScore") <- c(x1_goals, x2_goals)
@@ -138,8 +138,8 @@ game <- function(x1, x2, etps = TRUE, method = "sample") {
 
     # extra time (30 instead of 90 mins, i.e. 1/3):
     if(etps && (x1_goals == x2_goals)) {
-      x1_ET_goals <- rbinom(1, size = round(x1_chances / 3), prob = x1_efficiency)
-      x2_ET_goals <- rbinom(1, size = round(x2_chances / 3), prob = x2_efficiency)
+      x1_ET_goals <- rbinom(1, size = round2(x1_chances / 3), prob = x1_efficiency)
+      x2_ET_goals <- rbinom(1, size = round2(x2_chances / 3), prob = x2_efficiency)
       attr(retVal, "extraTimeScore") <- c(x1_ET_goals, x2_ET_goals)
       retVal[1:2] <- retVal[1:2] + attr(retVal, "extraTimeScore")
 
