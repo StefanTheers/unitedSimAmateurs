@@ -48,13 +48,13 @@ set.seed(2020)
 ## ----------------------------------------
 ##  semi-final:
 ## ----------------------------------------
-## Dortmund vs. Munich:    1:2
-## Paris vs. Warwick:      1:1 n.V. (0:1 i.E.)
+## Dortmund vs. Munich:	1:2
+## Paris vs. Warwick:	1:1 n.V. (12:13 i.E.)
 ##
 ## ----------------------------------------
 ##  final:
 ## ----------------------------------------
-## Munich vs. Warwick:     0:0 n.V. (4:5 i.E.)
+## Munich vs. Warwick:	0:0 n.V. (4:5 i.E.)
 ##
 ##
 ## This leads to points awarded as follows:
