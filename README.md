@@ -123,7 +123,7 @@ This comes as no surprise of course.
 ## About United
 United is a statistics game inspired by football and is played at the
 Faculty of Statistics at TU Dortmund University for more than 40 seasons.
-Check out these two packages:
+More background info about United and corresponding code can be found in these
+two packages:
 * [unitedR](https://cran.r-project.org/package=unitedR) by David Schindler and
 * [bfbUnited](https://gitlab.com/fchalligalli/bfbunited) by Philipp Hallmeier.
-
